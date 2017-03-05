@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2048</title>
+    <script src="./jquery.js"></script>
+    <style>
+        body,html{
+            width:100%;
+            height: 100%;
+            overflow:hidden;
+        }
+        #sencse{
+            width:325px;
+            height: 325px;
+            margin:200px auto;
+            background-color:#ddd;
+            position:relative;
+            cursor:pointer;
+            user-select:none;
+        }
+        .block{
+            width:80px;
+            height:80px;
+            position:absolute;
+            border:1px solid #ccc;
+            line-height: 80px;
+            text-align:center;
+            font-size:24px;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="sencse"></div>
+    <script>
+        
+        $(function(){
+            (function(){
+                var startX = 0;
+                var startY = 0;
+                var endX = 0;
+                var endY = 0;
+                $('body').on('mousedown',function(e){
+                    startX = e.pageX;
+                    startY = e.pageY;
+                })
+                $('body').on('mouseup',function(e){
+                    endX = e.pageX;
+                    endY = e.pageY;
+                    var X = endX - startX;
+                    var Y = endY - startY;
+                    if(Math.abs(X) >= Math.abs(Y)){
+                        if(Math.abs(X) < 30){
+                            return false;
+                        }
+                        if(X >= 0){
+                            rightSlide()
+                        }else{
+                            leftSlide()
+                        }
+                    }else{
+                        if(Math.abs(Y) < 30){
+                            return false;
+                        }
+                        if(Y >= 0){
+                            downSlide()
+                        }else{
+                            upSlide();
+                        }
+                    }
+                })
+            })()
+            var sencse = $('#sencse');
+            var num = 4;
+            var blocks = [];
+            for(var i=0;i<num;i++){
+                blocks[i] = [];
+                for(var j=0;j<num;j++){
+                    blocks[i][j] = 0;
+                    var left = 80 * i + i+'px';
+                    var top = 80 * j + j+'px';
+                    var blockDom = `<div class="block" id="block-${i}${j}" style="left:${left};top:${top}"></div>`;
+                    sencse.append($(blockDom));
+                }
+            }
+            romdomOneBlock();
+            function removeLeft(){
+                for(var j=0;j<4;j++)
+                    for(var i=0;i<3;i++){
+                        if(blocks[i][j] == 0){
+                            for(var k = i;k<3;k++){
+                                if(blocks[k][j] !=0)
+                                    break;
+                            }
+                            blocks[i][j] = blocks[k][j];
+                            blocks[k][j] = 0;
+                        }
+                    }
+            }
+            function removeRight(){
+                for(var j=0;j<4;j++)
+                    for(var i=3;i>0;i--){
+                        if(blocks[i][j] == 0){
+                            for(var k = i;k>0;k--){
+                                if(blocks[k][j] !=0)
+                                    break;
+                            }
+                            blocks[i][j] = blocks[k][j];
+                            blocks[k][j] = 0;
+                        }
+                    }
+            }
+            function removeUp(){
+                for(var i=0;i<4;i++)
+                    for(var j=0;j<3;j++){
+                        if(blocks[i][j] == 0){
+                            for(var k = j;k<3;k++){
+                                if(blocks[i][k] !=0)
+                                    break;
+                            }
+                            blocks[i][j] = blocks[i][k];
+                            blocks[i][k] = 0;
+                        }
+                    }
+            }
+            function removeDown(){
+                for(var i=0;i<4;i++)
+                    for(var j=3;j>0;j--){
+                        if(blocks[i][j] == 0){
+                            for(var k = j;k>0;k--){
+                                if(blocks[i][k] !=0)
+                                    break;
+                            }
+                            blocks[i][j] = blocks[i][k];
+                            blocks[i][k] = 0;
+                        }
+                    }
+            }
+            function leftSlide(){
+                removeLeft();
+                for(j=0;j<4;j++)
+                    for(i=0;i<3;i++){
+                        if(blocks[i][j] == 0){
+                            break;
+                        }else{
+                            if(blocks[i][j] == blocks[i+1][j]){
+                                blocks[i][j] += blocks[i+1][j];
+                                blocks[i+1][j] = 0;
+                                removeLeft();
+                            }
+                        }
+                    }
+                romdomOneBlock();
+            }
+            function rightSlide(){
+                removeRight();
+                for(j=0;j<4;j++)
+                    for(i=3;i>0;i--){
+                        if(blocks[i][j] == 0){
+                            break;
+                        }else{
+                            if(blocks[i][j] == blocks[i-1][j]){
+                                blocks[i][j] += blocks[i-1][j];
+                                blocks[i-1][j] = 0;
+                                removeRight();
+                            }
+                        }
+                    }
+                romdomOneBlock();
+            }
+            function downSlide(){
+                removeDown()
+                for(i=0;i<4;i++)
+                    for(j=3;j>0;j--){
+                        if(blocks[i][j] == 0){
+                            break;
+                        }else{
+                            if(blocks[i][j] == blocks[i][j-1]){
+                                blocks[i][j] += blocks[i][j-1];
+                                blocks[i][j-1] = 0;
+                                removeDown();
+                            }
+                        }
+                    }
+                romdomOneBlock()
+            }
+            function upSlide(){
+                removeUp();
+                for(i=0;i<4;i++)
+                    for(j=0;j<3;j++){
+                        if(blocks[i][j] == 0){
+                            break;
+                        }else{
+                            if(blocks[i][j] == blocks[i][j+1]){
+                                blocks[i][j] += blocks[i][j+1];
+                                blocks[i][j+1] = 0;
+                                removeUp();
+                            }
+                        }
+                    }
+                romdomOneBlock()
+            }
+            function romdomOneBlock(){
+                if(!judgeFail()){
+                    alert('游戏失败');
+                    return false;
+                }
+                var x = Math.floor(Math.random() * 1000 % 4);
+                var y = Math.floor(Math.random() * 1000 % 4);
+                if(blocks[x][y] == 0){
+                    blocks[x][y] = 2;
+                    updateView();
+                }else{
+                    romdomOneBlock();
+                }
+            }
+            function updateView(){
+                for(var i=0;i<num;i++){
+                    for(var j=0;j<num;j++){
+                        if(blocks[i][j] != 0){
+                            $(`#block-${i}${j}`).text(blocks[i][j]);
+                            var score = blocks[i][j];
+                            var color = '#aaa'
+                            switch(score){
+                                case 2:
+                                    color = '#aaa';
+                                    break ;
+                                case 4:
+                                    color = '#666';
+                                    break ;
+                                case 8:
+                                    color = '#F0E68C';
+                                    break;
+                                case 16:
+                                    color = '#FFD700';
+                                    break;
+                                case 32:
+                                    color = '#FFA500';
+                                    break;
+                                case 64:
+                                    color = '#D2691E';
+                                    break;
+                                case 128:
+                                    color = '#F08080';
+                                    break;
+                                case 256:
+                                    color = '#CD5C5C';
+                                    break;
+                                case 512:
+                                    color = '#800000';
+                                    break;
+                                case 1024:
+                                    color = '#4682B4';
+                                    break;
+                                case 2048:
+                                    color = '#9932CC';
+                                    break;
+                            }
+                            $(`#block-${i}${j}`).css('background-color',color);
+                        }else{
+                            $(`#block-${i}${j}`).text("");
+                            $(`#block-${i}${j}`).css('background-color','#ddd');
+                        }
+                    }
+                }
+            }
+            function judgeFail(){
+                for(var i=0;i<num;i++)
+                    for(var j=0;j<num;j++){
+                        if(blocks[i][j] == 0){
+                            return true;
+                        }
+                    }
+                return false;
+            }
+        })
+    </script>
+</body>
+</html>
