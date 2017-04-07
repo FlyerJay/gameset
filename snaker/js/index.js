@@ -15,23 +15,33 @@ document.body.appendChild(canvas);
 var snaker = {
     speed:100,
     body:[[2,0],[1,0],[0,0]],
-    direction:2,//0上,1下,2左,3右
+    direction:3,//0上,1下,2左,3右
 }
 
-var keyDown = {}
+var keyDown = {};
+
+var foodPosition = {
+    x:-1,
+    y:-1
+};
+var isEat = false;
 
 addEventListener('keydown',function(e){
     switch(e.keyCode){
         case 38:
+            if(snaker.direction == 0 || snaker.direction == 1) return;
             snaker.direction = 0;
             break;
         case 40:
+            if(snaker.direction == 0 || snaker.direction == 1) return;
             snaker.direction = 1;
             break;
         case 37:
+            if(snaker.direction == 2 || snaker.direction == 3) return;
             snaker.direction = 2;
             break;
         case 39:
+            if(snaker.direction == 2 || snaker.direction == 3) return;
             snaker.direction = 3;
             break;
     }
@@ -56,7 +66,8 @@ var init = function(){
 
 function drawSnaker(){
     ctx.clearRect(0,0,480,480);
-    init()
+    //init();
+    drawFood();
     var j = 0;
     while(j < snaker.body.length){
         ctx.fillRect(snaker.body[j][0]*20+1,snaker.body[j][1]*20+1,19,19)
@@ -64,62 +75,97 @@ function drawSnaker(){
     }
 }
 
+
+function productFood(){
+    var x = Math.floor((Math.random()*24))
+    var y = Math.floor((Math.random()*24))
+    for(arr in snaker.body){
+        if(x==arr[0] && y==arr[1]){
+            productFood();
+            return;
+        } 
+    }
+    foodPosition.x = x;
+    foodPosition.y = y; 
+    console.log(foodPosition.x,foodPosition.y)
+}
+
+function drawFood(){
+    ctx.save();
+    ctx.fillStyle = 'red';
+    ctx.fillRect(foodPosition.x*20+1,foodPosition.y*20+1,19,19)
+    ctx.restore();
+}
+
 function snakerMove(){
-    var temp = snaker.body[0];
-    var now = [];
-    
     switch(snaker.direction){
         case 0:
-            snaker.body[0][1] > 0 ? snaker.body[0][1] -- : snaker.body[0][1] = 23; 
-            var i = 1;
-            while(i < snaker.body.length){
-                now = snaker.body[i];
-                snaker.body[i] = temp;
-                temp = now;
-                i++;
+            var i = snaker.body.length - 1;
+            var copy = snaker.body;
+            while(i > 0){
+                copy[i][0] = snaker.body[i-1][0];
+                copy[i][1] = snaker.body[i-1][1];
+                i--;
             }
+            copy[0][1] > 0 ? copy[0][1]-- : copy[0][1] = 23;
+            snaker.body = copy;
             break;
         case 1:
-            snaker.body[0][1] < 23 ? snaker.body[0][1] ++ : snaker.body[0][1] = 0; 
-            var i = 1;
-            while(i < snaker.body.length){
-                now = snaker.body[i];
-                snaker.body[i] = temp;
-                temp = now;
-                i++;
+            var i = snaker.body.length - 1;
+            var copy = snaker.body;
+            while(i > 0){
+                copy[i][0] = snaker.body[i-1][0];
+                copy[i][1] = snaker.body[i-1][1];
+                i--;
             }
+            copy[0][1] < 23 ? copy[0][1]++ : copy[0][1] = 0;
+            snaker.body = copy;
             break;
         case 2:
-            snaker.body[0][0] > 0 ? snaker.body[0][0] -- : snaker.body[0][0] = 23; 
-            var i = 1;
-            while(i < snaker.body.length){
-                (function(i){
-                    now = snaker.body[i];
-                    snaker.body[i] = temp;
-                    temp = now;
-                })(i)
-                i++;
+            var i = snaker.body.length - 1;
+            var copy = snaker.body;
+            while(i > 0){
+                copy[i][0] = snaker.body[i-1][0];
+                copy[i][1] = snaker.body[i-1][1];
+                i--;
             }
+            copy[0][0] > 0 ? copy[0][0]-- : copy[0][0] = 23;
+            snaker.body = copy;
             break;
         case 3:
-            snaker.body[0][0] < 23 ? snaker.body[0][0] ++ : snaker.body[0][0] = 0; 
-            var i = 1;
-            while(i < snaker.body.length){
-                now = snaker.body[i];
-                snaker.body[i] = temp;
-                temp = now;
-                i++;
+            var i = snaker.body.length - 1;
+            var copy = snaker.body;
+            while(i > 0){
+                copy[i][0] = snaker.body[i-1][0];
+                copy[i][1] = snaker.body[i-1][1];
+                i--;
             }
+            copy[0][0] < 23 ? copy[0][0]++ : copy[0][0] = 0;
+            snaker.body = copy;
             break;
     }
+    if(isEat == true){
+        snaker.body.push([foodPosition.x,foodPosition.y]);
+        foodPosition.x = -1;
+        foodPosition.y = -1;
+        productFood();
+    }
+    isEat = false;
+    if(snaker.body[0][0] == foodPosition.x && snaker.body[0][1] == foodPosition.y){
+        isEat = true;
+    }
     drawSnaker();
+    //window.requestAnimationFrame(snakerMove)
 }
 
 function main(){
     init()
+    drawSnaker();
+    drawFood();
+    productFood();
     setInterval(function(){
         snakerMove();
-    },1000)
+    },100)
 }
 
 main();
