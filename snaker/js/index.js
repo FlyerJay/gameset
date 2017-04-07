@@ -22,7 +22,8 @@ var keyDown = {};
 
 var foodPosition = {
     x:-1,
-    y:-1
+    y:-1,
+    speed:1,
 };
 var isEat = false;
 
@@ -92,58 +93,12 @@ function productFood(){
 
 function drawFood(){
     ctx.save();
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = 'green';
     ctx.fillRect(foodPosition.x*20+1,foodPosition.y*20+1,19,19)
     ctx.restore();
 }
 
 function snakerMove(){
-    switch(snaker.direction){
-        case 0:
-            var i = snaker.body.length - 1;
-            var copy = snaker.body;
-            while(i > 0){
-                copy[i][0] = snaker.body[i-1][0];
-                copy[i][1] = snaker.body[i-1][1];
-                i--;
-            }
-            copy[0][1] > 0 ? copy[0][1]-- : copy[0][1] = 23;
-            snaker.body = copy;
-            break;
-        case 1:
-            var i = snaker.body.length - 1;
-            var copy = snaker.body;
-            while(i > 0){
-                copy[i][0] = snaker.body[i-1][0];
-                copy[i][1] = snaker.body[i-1][1];
-                i--;
-            }
-            copy[0][1] < 23 ? copy[0][1]++ : copy[0][1] = 0;
-            snaker.body = copy;
-            break;
-        case 2:
-            var i = snaker.body.length - 1;
-            var copy = snaker.body;
-            while(i > 0){
-                copy[i][0] = snaker.body[i-1][0];
-                copy[i][1] = snaker.body[i-1][1];
-                i--;
-            }
-            copy[0][0] > 0 ? copy[0][0]-- : copy[0][0] = 23;
-            snaker.body = copy;
-            break;
-        case 3:
-            var i = snaker.body.length - 1;
-            var copy = snaker.body;
-            while(i > 0){
-                copy[i][0] = snaker.body[i-1][0];
-                copy[i][1] = snaker.body[i-1][1];
-                i--;
-            }
-            copy[0][0] < 23 ? copy[0][0]++ : copy[0][0] = 0;
-            snaker.body = copy;
-            break;
-    }
     if(isEat == true){
         snaker.body.push([foodPosition.x,foodPosition.y]);
         foodPosition.x = -1;
@@ -155,17 +110,63 @@ function snakerMove(){
         isEat = true;
     }
     drawSnaker();
-    //window.requestAnimationFrame(snakerMove)
+    window.requestAnimationFrame(snakerMove)
 }
 
 function main(){
-    init()
+    //init()
     drawSnaker();
     drawFood();
     productFood();
+    snakerMove();
     setInterval(function(){
-        snakerMove();
-    },100)
+        switch(snaker.direction){
+            case 0:
+                var i = snaker.body.length - 1;
+                var copy = snaker.body;
+                while(i > 0){
+                    copy[i][0] = snaker.body[i-1][0];
+                    copy[i][1] = snaker.body[i-1][1];
+                    i--;
+                }
+                copy[0][1] > 0 ? copy[0][1]-- : copy[0][1] = 23;
+                snaker.body = copy;
+                break;
+            case 1:
+                var i = snaker.body.length - 1;
+                var copy = snaker.body;
+                while(i > 0){
+                    copy[i][0] = snaker.body[i-1][0];
+                    copy[i][1] = snaker.body[i-1][1];
+                    i--;
+                }
+                copy[0][1] < 23 ? copy[0][1]++ : copy[0][1] = 0;
+                snaker.body = copy;
+                break;
+            case 2:
+                var i = snaker.body.length - 1;
+                var copy = snaker.body;
+                while(i > 0){
+                    copy[i][0] = snaker.body[i-1][0];
+                    copy[i][1] = snaker.body[i-1][1];
+                    i--;
+                }
+                copy[0][0] > 0 ? copy[0][0]-- : copy[0][0] = 23;
+                snaker.body = copy;
+                break;
+            case 3:
+                var i = snaker.body.length - 1;
+                var copy = snaker.body;
+                while(i > 0){
+                    copy[i][0] = snaker.body[i-1][0];
+                    copy[i][1] = snaker.body[i-1][1];
+                    i--;
+                }
+                copy[0][0] < 23 ? copy[0][0]++ : copy[0][0] = 0;
+                snaker.body = copy;
+                break;
+        }
+    },(1000/snaker.speed*10));
 }
 
 main();
