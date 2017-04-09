@@ -1,0 +1,11 @@
+var canvas = document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+canvas.width = 480;
+canvas.height = 700;
+canvas.style.position = 'absolute';
+canvas.style.backgroundColor = '#efefef';
+canvas.style.top = '50%';
+canvas.style.left = '50%';
+canvas.style.marginLeft = '-240px';
+canvas.style.marginTop = '-350px';
+document.body.appendChild(canvas);
