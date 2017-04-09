@@ -13,7 +13,7 @@ canvas.style.marginLeft="-240px";
 document.body.appendChild(canvas);
 
 var snaker = {
-    speed:70,
+    speed:10,
     body:[[2,0],[1,0],[0,0]],
     direction:3,//0上,1下,2左,3右
 }
