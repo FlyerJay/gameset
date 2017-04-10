@@ -167,6 +167,7 @@ function snakerMove(){
 function gameEnd(){
     clearInterval(move);
     snaker.end = true;
+    cancelAnimationFrame(draw)
 }
 
 function main(){
@@ -181,6 +182,7 @@ function startGame(){
     snaker.body = [{x: 2, y: 0},{x: 1, y: 0},{x: 0, y: 0}];
     snaker.end = false;
     snakerMove();
+    requestAnimationFrame(draw);
 }
 
 main();
