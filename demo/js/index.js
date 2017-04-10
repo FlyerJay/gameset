@@ -144,7 +144,7 @@ function drawInfo(){
         ctx.save();
         ctx.fillStyle = 'red';
         ctx.font = '24px 隶书';
-        ctx.fillText('游戏结束',200,228);
+        ctx.fillText('按空格开始游戏',200,228);
         ctx.restore();
     }
 }
