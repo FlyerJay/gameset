@@ -1,3 +1,4 @@
+/**设置canvas画布 */
 var canvas = document.createElement('canvas');
 var ctx = canvas.getContext('2d');
 canvas.width = 400;
@@ -11,34 +12,44 @@ canvas.style.marginLeft = '-200px';
 canvas.style.marginTop = '-300px';
 document.body.appendChild(canvas);
 
-var boomImage = new Image();
-boomImage.src = './images/boom.png';
-var boomReady = false;
-boomImage.onload = function(){
-    boomReady = true;
-};
+/**定义游戏状态 */
+var GAME_STATUS = 0;//0是加载中，1是进行中
 
-var heroImage = new Image();
-heroImage.src = './images/hero.png';
-var heroReady = false;
-heroImage.onload = function(){
-    heroReady = true;
+/**定义需要加载的图片 */
+var loadImg = new Image();
+loadImg.src = './images/loading.gif';
+loadImg.onload = function(){
+    drawLoading();
+}
+var images = ['./images/boom.png','./images/hero.png','./images/map.jpg','./images/hullet.png'];
+var Images = [];
+
+/**加载所有图片 */
+function loadImage(){
+    for(var i = 0; i < images.length; i++){
+        console.log(1);
+        (function(i){
+            var image = new Image();
+            image.src = images[i];
+            Images.push(image);
+            image.onload = function(){
+                loading();
+            }
+        })(i)
+        
+    }
+}
+var loadStep = 0;
+function loading(){
+    loadStep += Math.ceil(100/images.length);
+    if(loadStep >= 100){
+        var img = document.getElementsByTagName('img')[0]
+        document.body.removeChild(img);
+        GAME_STATUS = 1;
+    }
 }
 
-var backgroundImage = new Image();
-backgroundImage.src = './images/map.jpg'
-var backgroundReady = false;
-backgroundImage.onload = function(){
-    backgroundReady = true;
-}
-
-var hulletImage = new Image();
-hulletImage.src = './images/hullet.png';
-var hulletReady = false;
-hulletImage.onload = function(){
-    hulletReady = true;
-}
-
+/**定义爆炸动画 */
 function Boom(){
     var boom = function(){
         this.boomSize = 70;
@@ -49,8 +60,8 @@ function Boom(){
     }
     boom.prototype.startBoom = function(x,y,size){
         var self = this;
-        if(boomReady && !self.boomEnd){
-            ctx.drawImage(boomImage,8.3+self.boomINTER*self.boomState,0,self.boomSize,self.boomSize,x,y,size,size);
+        if(!self.boomEnd){
+            ctx.drawImage(Images[0],8.3+self.boomINTER*self.boomState,0,self.boomSize,self.boomSize,x,y,size,size);
             self.boomState++;
             if(self.boomState > 12){
                 self.boomEnd = true;
@@ -60,8 +71,8 @@ function Boom(){
     }
     return new boom();
 }
-var hero = new Hero();
 
+/**定义英雄的方向控制函数 */
 addEventListener('keydown',function(e){
     switch(e.keyCode){
         case 38:
@@ -78,7 +89,6 @@ addEventListener('keydown',function(e){
             break;
     }
 })
-
 addEventListener('keyup',function(e){
     switch(e.keyCode){
         case 38:
@@ -96,18 +106,26 @@ addEventListener('keyup',function(e){
     }
 })
 
+/**定义hero对象 */
 function Hero(){
     this.x = 160;
-    this.y = 540;
+    this.y = 520;
+    this.shotSpeed = 200;
     this.direction = {
         up:false,
         down:false,
         left:false,
         right:false,
     };
+    this.hullets = [];
+    var self = this;
+    this.shot = function(){
+        setInterval(function(){
+            self.hullets.push(new Hullet(self.x,self.y));
+        },self.shotSpeed)
+    }
+    this.shot();//自动攻击
 }
-
-var hullets = [];
 
 function Hullet(x,y){
     this.x = x;
@@ -115,16 +133,14 @@ function Hullet(x,y){
 }
 
 function draw(){
-    ctx.save();
-    ctx.fillStyle = 'transparent';
-    ctx.restore();
-    drawBg();
-    //Boom().startBoom(20,20,40);
-    drawHullet();
-    drawHero();
+    if(GAME_STATUS == 1){
+        drawBg();
+        drawHero();
+    }
     requestAnimationFrame(draw);
 }
 
+var hero = new Hero();
 function drawHero(){
     if(hero.direction.up && hero.y > -50)
         hero.y-=5;
@@ -134,40 +150,46 @@ function drawHero(){
         hero.x-=5;
     if(hero.direction.right && hero.x < 350)
         hero.x+=5;
-    ctx.drawImage(heroImage,hero.x,hero.y,100,100);
-}
-
-var by = -2048+600;
-
-function drawBg(){
-    by+=2;
-    if(by == -424) by = -2048+600;
-    ctx.drawImage(backgroundImage,0,by,400,1024);
-    ctx.drawImage(backgroundImage,0,by+1024,400,1024);
-}
-
-function shot(){
-    setInterval(function(){
-        hullets.push(new Hullet(hero.x,hero.y));
-    },200)
-}
-
-function drawHullet(){
-    for(var i = 0;i < hullets.length;i++){
-        ctx.drawImage(hulletImage,hullets[i].x+20,hullets[i].y-=10,60,60)
+    for(var i = 0; i < hero.hullets.length; i++){
+        ctx.drawImage(Images[3],hero.hullets[i].x + 20,hero.hullets[i].y -= 10,60,60);
     }
     var copy = [];
-    for(var i = 0;i < hullets.length;i++){
-        if(hullets[i].y > -50){
-            copy.push(hullets[i])
+    for(var i = 0;i < hero.hullets.length;i++){
+        if(hero.hullets[i].y > -50){
+            copy.push(hero.hullets[i])
         }
     }
-    hullets = copy;
+    hero.hullets = copy;
+    ctx.drawImage(Images[1],hero.x,hero.y,100,100);
+}
+
+/**绘制背景 */
+var by = 600 -2048;
+function drawBg(){
+    by += 2;
+    if(by == -424) by = 600 - 2048;
+    ctx.drawImage(Images[2],0,by,400,1024);
+    ctx.drawImage(Images[2],0,by+1024,400,1024);
+}
+
+function drawLoading(){
+    ctx.save();
+    ctx.fillStyle = '#efefef';
+    ctx.fillRect(0,0,400,600);
+    ctx.restore();
+    var img = document.createElement('img');
+    img.style.position = 'absolute';
+    img.style.top = '50%';
+    img.style.left = '50%';
+    img.style.transform = 'translate3d(-50%,-50%,0)';
+    img.src = './images/loading.gif';
+    img.style.zIndex = '1001';
+    document.body.appendChild(img); 
 }
 
 function main(){
+    loadImage();
     draw();
-    shot();
 }
 
 main();
