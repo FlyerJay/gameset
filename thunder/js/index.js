@@ -27,7 +27,6 @@ var Images = [];
 /**加载所有图片 */
 function loadImage(){
     for(var i = 0; i < images.length; i++){
-        console.log(1);
         (function(i){
             var image = new Image();
             image.src = images[i];
@@ -40,12 +39,14 @@ function loadImage(){
     }
 }
 var loadStep = 0;
+var hero = {};
 function loading(){
     loadStep += Math.ceil(100/images.length);
     if(loadStep >= 100){
         var img = document.getElementsByTagName('img')[0]
         document.body.removeChild(img);
         GAME_STATUS = 1;
+        hero = new Hero();
     }
 }
 
@@ -132,15 +133,6 @@ function Hullet(x,y){
     this.y = y;
 }
 
-function draw(){
-    if(GAME_STATUS == 1){
-        drawBg();
-        drawHero();
-    }
-    requestAnimationFrame(draw);
-}
-
-var hero = new Hero();
 function drawHero(){
     if(hero.direction.up && hero.y > -50)
         hero.y-=5;
@@ -185,6 +177,15 @@ function drawLoading(){
     img.src = './images/loading.gif';
     img.style.zIndex = '1001';
     document.body.appendChild(img); 
+}
+
+/**主绘制函数 */
+function draw(){
+    if(GAME_STATUS == 1){
+        drawBg();
+        drawHero();
+    }
+    requestAnimationFrame(draw);
 }
 
 function main(){
