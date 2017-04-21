@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>upload</title>
+    <script src="../jquery.js"></script>
+</head>
+<body>
+    <form action="http://127.0.0.1:7001/zues/api/upload/excel" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="提交" id="submit">
+    </form>
+    <script>
+        window.onload = function(){
+            var $submit = document.getElementById('submit');
+            var $file = document.getElementById('file');
+            $submit.addEventListener('click',function(e){
+                const file = $file.files[0];
+                var data = new FormData();
+                data.append('file',data);
+                console.log(file);
+                if(file){
+                    console.log(file);
+                    var xhr = new XMLHttpRequest(true,'POST');
+                    xhr.open('POST','http://127.0.0.1:7001/zues/api/upload/excel',true);
+                    xhr.send(data);
+                    xhr.addEventListener('readystatechange', httpEnd(xhr), false);
+                }
+            })
+        }
+
+        function httpEnd(xhr){
+            console.log(xhr);
+        }
+    </script>
+
+    <!--<form>
+        <input type="text" id="userName">
+        <input type="password" id="password">
+        <input type="button" value="提交">
+    </form>
+    <script>
+        $(function(){
+            var $userName = document.getElementById('userName');
+            var $password = document.getElementById('password');
+            $.ajax({
+                url:'http://127.0.0.1:7001/user/register',
+                type:'POST',
+                data:{userName:'111'},
+                dataType:'JSON',
+                success:function(data){
+                    console.log(data);
+                }
+            })
+        })
+    </script>-->
+</body>
+</html>
