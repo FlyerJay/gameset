@@ -1,0 +1,498 @@
+﻿<span style="font-family:Microsoft YaHei;font-size:12px;"><html>  
+<head>  
+    <title>测试Web页面打印功能</title>  
+    <script type="text/javascript" src="LodopFuncs.js"></script>  
+</head>  
+<style>  
+   .title  
+   {  
+   font-family: Arial, Vernada, Tahoma, sans-serif;  
+   font-size: 30px;  
+   color: #00008B;  
+   background-color: White;  
+   text-decoration: underline  
+   }  
+   .normal  
+   {  
+   font-family: Arial, Vernada, Tahoma, Helvetica, sans-serif;  
+   font-size: 14px;  
+   color: #444444;  
+   text-decoration: none;  
+   line-height: 180%;  
+   }  
+   #page1 div  
+   {  
+   font-size: 12px;font-family:Arial;  
+   }  
+   .tab1{border:solid 1px #bbd4e8;}  
+   .tab1 td,th {border:solid 1px #bbd4e8;font-size: 12px;font-family:Arial;line-height:21px;text-align:center}  
+   .tab1 td.tdnumber{text-align:right}  
+   .tab1 #lastPageFooter td,.tab1 #everyPageFooter td{text-align:left}  
+   .tab1 .green {color:#090}  
+   .tab1 .red{color:red}  
+   #myEveryFooter,#myLastFooter{display:none;color:#0066cc;font-weight:700;background-color:#e8f2fe}  
+   span.src{font-size:9pt;margin-left:100px;}  
+</style>  
+<object classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" codebase="lodop.cab#version=5,0,5,7" width=200 height=50 >  
+</object><br/>  
+<body>  
+    <input type="button" value="打印预览" onClick="prn1_preview();">  
+    <input type="button" value="直接打印" onClick="prn1_print();">  
+    <input type="button" value="选择打印机" onClick="prn1_printA();">  
+  
+    <div id="form1" style="position:relative;width:227mm;height:80mm" autoBreakTable='dt_1'>  
+        <table id="dt1" class="tab1" cellSpacing="0" cellPadding="0" style='border-collapse:collapse;width:683px;'  
+               headerRows='2' everyFooter='myEveryFooter' lastFooter='myLastFooter'>  
+            <caption style='font-size:36px;height:60px;font-family:Microsoft YaHei;color:#a7c0dc' class='first-only'>股票投资营收明细  
+            </caption>  
+            <thead class="h101">  
+                <tr>  
+                    <th style="padding: 0px; width: 32px; white-space: nowrap;" rowSpan="2">序号</th>  
+                    <th style="padding: 0px; width: 62px; white-space: nowrap;" rowSpan="2"><a hideFocus="true" style="padding: 0px;"  
+                                                                                               href="#" target="_self">股票代码</a></th>  
+                    <th style="padding: 0px; width: 65px; white-space: nowrap;" rowSpan="2">股票简称</th>  
+                    <th style="padding: 0px; width: 70px; white-space: nowrap;" rowSpan="2">相关资料</th>  
+                    <th style="padding: 0px; width: 58px;" rowSpan="2"><a hideFocus="true" style="padding: 0px;" href="#"  
+                                                                          target="_self">每股收<br>益(元)</a></th>  
+                    <th style="padding: 0px; width: 196px;" colSpan="3">营业收入</th>  
+                    <th style="padding: 0px; width: 193px;" colSpan="3">净利润</th>  
+                </tr>  
+                <tr>  
+                    <th style="padding: 0px; width: 70px;"><a hideFocus="true" style="padding: 0px;" href="#" target="_self">营业收入<br>(万元)</a>  
+                    </th>  
+                    <th style="padding: 0px; width: 62px;"><a hideFocus="true" style="padding: 0px;" href="#" target="_self">同比增长<br>(%)</a>  
+                    </th>  
+                    <th style="padding: 0px; width: 62px;"><a hideFocus="true" style="padding: 0px;" href="#" target="_self">季度环比<br>增长(%)</a>  
+                    </th>  
+                    <th style="padding: 0px; width: 66px;"><a hideFocus="true" style="padding: 0px;" href="#" target="_self">净利润<br>(万元)</a>  
+                    </th>  
+                    <th style="padding: 0px; width: 62px;"><a hideFocus="true" style="padding: 0px;" href="#" target="_self">同比增长<br>(%)</a>  
+                    </th>  
+                    <th style="padding: 0px; width: 62px;"><a hideFocus="true" style="padding: 0px;" href="#" target="_self">季度环比<br>增长(%)</a>  
+                    </th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td>1</td>  
+                    <td><a href="#">300184</a></td>  
+                    <td><a href="#">力源信息</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0600</span></td>  
+                    <td class="tdnumber"><span>7225.38</span></td>  
+                    <td class="tdnumber"><span class="red">15.69</span></td>  
+                    <td class="tdnumber"><span class="green">-10.65</span></td>  
+                    <td class="tdnumber"><span>563.83</span></td>  
+                    <td class="tdnumber"><span class="red">79.25</span></td>  
+                    <td class="tdnumber"><span class="red">90.00</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>2</td>  
+                    <td><a href="#">300094</a></td>  
+                    <td><a href="#">国联水产</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>-0.0200</span></td>  
+                    <td class="tdnumber"><span>38563.77</span></td>  
+                    <td class="tdnumber"><span class="red">57.53</span></td>  
+                    <td class="tdnumber"><span class="green">-12.89</span></td>  
+                    <td class="tdnumber"><span>-871.34</span></td>  
+                    <td class="tdnumber"><span class="red">70.47</span></td>  
+                    <td class="tdnumber"><span class="red">93.48</span></td>  
+                </tr>  
+                <tr>  
+                    <td>3</td>  
+                    <td><a href="#">300268</a></td>  
+                    <td><a href="#">万福生科</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>-0.0360</span></td>  
+                    <td class="tdnumber"><span>7328.07</span></td>  
+                    <td class="tdnumber"><span class="red">54.57</span></td>  
+                    <td class="tdnumber"><span class="green">-36.38</span></td>  
+                    <td class="tdnumber"><span>-477.11</span></td>  
+                    <td class="tdnumber"><span class="green">-50.05</span></td>  
+                    <td class="tdnumber"><span class="green">-92.22</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>4</td>  
+                    <td><a href="#">300277</a></td>  
+                    <td><a href="#">海联讯</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0074</span></td>  
+                    <td class="tdnumber"><span>6362.02</span></td>  
+                    <td class="tdnumber"><span class="red">46.90</span></td>  
+                    <td class="tdnumber"><span class="green">-14.14</span></td>  
+                    <td class="tdnumber"><span>98.74</span></td>  
+                    <td class="tdnumber"><span class="red">120.41</span></td>  
+                    <td class="tdnumber"><span class="green">-86.32</span></td>  
+                </tr>  
+                <tr>  
+                    <td>5</td>  
+                    <td><a href="#">300340</a></td>  
+                    <td><a href="#">科恒股份</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0600</span></td>  
+                    <td class="tdnumber"><span>8960.76</span></td>  
+                    <td class="tdnumber"><span class="green">-43.65</span></td>  
+                    <td class="tdnumber"><span class="green">-25.43</span></td>  
+                    <td class="tdnumber"><span>320.76</span></td>  
+                    <td class="tdnumber"><span class="green">-84.28</span></td>  
+                    <td class="tdnumber"><span class="red">147.56</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>6</td>  
+                    <td><a href="#">300002</a></td>  
+                    <td><a href="#">神州泰岳</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.2500</span></td>  
+                    <td class="tdnumber"><span>34845.30</span></td>  
+                    <td class="tdnumber"><span class="red">43.44</span></td>  
+                    <td class="tdnumber"><span class="green">-18.22</span></td>  
+                    <td class="tdnumber"><span>9744.63</span></td>  
+                    <td class="tdnumber"><span class="red">73.25</span></td>  
+                    <td class="tdnumber"><span class="green">-26.15</span></td>  
+                </tr>  
+                <tr>  
+                    <td>7</td>  
+                    <td><a href="#">300063</a></td>  
+                    <td><a href="#">天龙集团</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0362</span></td>  
+                    <td class="tdnumber"><span>9355.08</span></td>  
+                    <td class="tdnumber"><span class="red">26.80</span></td>  
+                    <td class="tdnumber"><span class="green">-6.40</span></td>  
+                    <td class="tdnumber"><span>363.48</span></td>  
+                    <td class="tdnumber"><span class="green">-1.56</span></td>  
+                    <td class="tdnumber"><span class="red">94.76</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>8</td>  
+                    <td><a href="#">300140</a></td>  
+                    <td><a href="#">启源装备</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0300</span></td>  
+                    <td class="tdnumber"><span>3320.54</span></td>  
+                    <td class="tdnumber"><span class="green">-31.59</span></td>  
+                    <td class="tdnumber"><span class="green">-28.35</span></td>  
+                    <td class="tdnumber"><span>379.53</span></td>  
+                    <td class="tdnumber"><span class="green">-167.03</span></td>  
+                    <td class="tdnumber"><span class="green">-41.75</span></td>  
+                </tr>  
+                <tr>  
+                    <td>9</td>  
+                    <td><a href="#">300142</a></td>  
+                    <td><a href="#">沃森生物</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.1400</span></td>  
+                    <td class="tdnumber"><span>9400.33</span></td>  
+                    <td class="tdnumber"><span class="red">69.34</span></td>  
+                    <td class="tdnumber"><span class="green">-49.37</span></td>  
+                    <td class="tdnumber"><span>2585.85</span></td>  
+                    <td class="tdnumber"><span class="red">10.69</span></td>  
+                    <td class="tdnumber"><span class="green">-66.60</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>10</td>  
+                    <td><a href="#">300161</a></td>  
+                    <td><a href="#">华中数控</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>-0.0200</span></td>  
+                    <td class="tdnumber"><span>6920.17</span></td>  
+                    <td class="tdnumber"><span class="green">-34.03</span></td>  
+                    <td class="tdnumber"><span class="green">-60.79</span></td>  
+                    <td class="tdnumber"><span>-259.10</span></td>  
+                    <td class="tdnumber"><span class="green">-157.82</span></td>  
+                    <td class="tdnumber"><span class="red">19.92</span></td>  
+                </tr>  
+                <tr>  
+                    <td>11</td>  
+                    <td><a href="#">300218</a></td>  
+                    <td><a href="#">安利股份</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0408</span></td>  
+                    <td class="tdnumber"><span>24035.55</span></td>  
+                    <td class="tdnumber"><span class="green">-4.15</span></td>  
+                    <td class="tdnumber"><span class="green">-19.03</span></td>  
+                    <td class="tdnumber"><span>861.89</span></td>  
+                    <td class="tdnumber"><span class="red">4.25</span></td>  
+                    <td class="tdnumber"><span class="green">-5.31</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>12</td>  
+                    <td><a href="#">300232</a></td>  
+                    <td><a href="#">洲明科技</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0400</span></td>  
+                    <td class="tdnumber"><span>14773.69</span></td>  
+                    <td class="tdnumber"><span class="red">75.61</span></td>  
+                    <td class="tdnumber"><span class="green">-25.47</span></td>  
+                    <td class="tdnumber"><span>423.65</span></td>  
+                    <td class="tdnumber"><span class="red">148.16</span></td>  
+                    <td class="tdnumber"><span class="green">-3.03</span></td>  
+                </tr>  
+                <tr>  
+                    <td>13</td>  
+                    <td><a href="#">300007</a></td>  
+                    <td><a href="#">汉威电子</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0500</span></td>  
+                    <td class="tdnumber"><span>5670.97</span></td>  
+                    <td class="tdnumber"><span class="green">-8.62</span></td>  
+                    <td class="tdnumber"><span class="green">-23.81</span></td>  
+                    <td class="tdnumber"><span>624.92</span></td>  
+                    <td class="tdnumber"><span class="green">-17.08</span></td>  
+                    <td class="tdnumber"><span class="green">-49.80</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>14</td>  
+                    <td><a href="#">300010</a></td>  
+                    <td><a href="#">立思辰</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0210</span></td>  
+                    <td class="tdnumber"><span>7268.28</span></td>  
+                    <td class="tdnumber"><span class="green">-29.57</span></td>  
+                    <td class="tdnumber"><span class="green">-65.22</span></td>  
+                    <td class="tdnumber"><span>548.31</span></td>  
+                    <td class="tdnumber"><span class="green">-35.56</span></td>  
+                    <td class="tdnumber"><span class="green">-67.36</span></td>  
+                </tr>  
+                <tr>  
+                    <td>15</td>  
+                    <td><a href="#">300013</a></td>  
+                    <td><a href="#">新宁物流</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0600</span></td>  
+                    <td class="tdnumber"><span>8695.67</span></td>  
+                    <td class="tdnumber"><span class="red">22.76</span></td>  
+                    <td class="tdnumber"><span class="green">-2.85</span></td>  
+                    <td class="tdnumber"><span>536.05</span></td>  
+                    <td class="tdnumber"><span class="red">237.79</span></td>  
+                    <td class="tdnumber"><span class="red">1681.49</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>16</td>  
+                    <td><a href="#">300015</a></td>  
+                    <td><a href="#">爱尔眼科</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.1100</span></td>  
+                    <td class="tdnumber"><span>41337.67</span></td>  
+                    <td class="tdnumber"><span class="red">16.59</span></td>  
+                    <td class="tdnumber"><span class="green">-1.72</span></td>  
+                    <td class="tdnumber"><span>4872.39</span></td>  
+                    <td class="tdnumber"><span class="red">2.38</span></td>  
+                    <td class="tdnumber"><span class="red">40.29</span></td>  
+                </tr>  
+                <tr>  
+                    <td>17</td>  
+                    <td><a href="#">300018</a></td>  
+                    <td><a href="#">中元华电</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0500</span></td>  
+                    <td class="tdnumber"><span>3872.17</span></td>  
+                    <td class="tdnumber"><span class="red">17.86</span></td>  
+                    <td class="tdnumber"><span class="green">-53.55</span></td>  
+                    <td class="tdnumber"><span>646.25</span></td>  
+                    <td class="tdnumber"><span class="green">-23.40</span></td>  
+                    <td class="tdnumber"><span class="green">-44.71</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>18</td>  
+                    <td><a href="#">300021</a></td>  
+                    <td><a href="#">大禹节水</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0200</span></td>  
+                    <td class="tdnumber"><span>8724.67</span></td>  
+                    <td class="tdnumber"><span class="red">18.81</span></td>  
+                    <td class="tdnumber"><span class="green">-60.07</span></td>  
+                    <td class="tdnumber"><span>458.52</span></td>  
+                    <td class="tdnumber"><span class="green">-13.50</span></td>  
+                    <td class="tdnumber"><span class="green">-56.93</span></td>  
+                </tr>  
+                <tr>  
+                    <td>19</td>  
+                    <td><a href="#">300022</a></td>  
+                    <td><a href="#">吉峰农机</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0115</span></td>  
+                    <td class="tdnumber"><span>61165.58</span></td>  
+                    <td class="tdnumber"><span class="green">-13.36</span></td>  
+                    <td class="tdnumber"><span class="green">-64.11</span></td>  
+                    <td class="tdnumber"><span>410.85</span></td>  
+                    <td class="tdnumber"><span class="green">-39.14</span></td>  
+                    <td class="tdnumber"><span class="red">114.09</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>20</td>  
+                    <td><a href="#">300024</a></td>  
+                    <td><a href="#">机器人</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.1169</span></td>  
+                    <td class="tdnumber"><span>24051.82</span></td>  
+                    <td class="tdnumber"><span class="red">4.38</span></td>  
+                    <td class="tdnumber"><span class="green">-16.85</span></td>  
+                    <td class="tdnumber"><span>3479.12</span></td>  
+                    <td class="tdnumber"><span class="red">31.52</span></td>  
+                    <td class="tdnumber"><span class="green">-61.57</span></td>  
+                </tr>  
+                <tr>  
+                    <td>21</td>  
+                    <td><a href="#">300026</a></td>  
+                    <td><a href="#">红日药业</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.2500</span></td>  
+                    <td class="tdnumber"><span>40097.11</span></td>  
+                    <td class="tdnumber"><span class="red">141.46</span></td>  
+                    <td class="tdnumber"><span class="green">-6.86</span></td>  
+                    <td class="tdnumber"><span>6109.82</span></td>  
+                    <td class="tdnumber"><span class="red">67.14</span></td>  
+                    <td class="tdnumber"><span class="red">10.78</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>22</td>  
+                    <td><a href="#">300028</a></td>  
+                    <td><a href="#">金亚科技</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0377</span></td>  
+                    <td class="tdnumber"><span>13848.97</span></td>  
+                    <td class="tdnumber"><span class="red">97.63</span></td>  
+                    <td class="tdnumber"><span class="green">-29.50</span></td>  
+                    <td class="tdnumber"><span>999.36</span></td>  
+                    <td class="tdnumber"><span class="red">10.79</span></td>  
+                    <td class="tdnumber"><span class="red">1144.05</span></td>  
+                </tr>  
+                <tr>  
+                    <td>23</td>  
+                    <td><a href="#">300029</a></td>  
+                    <td><a href="#">天龙光电</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>-0.0500</span></td>  
+                    <td class="tdnumber"><span>11365.73</span></td>  
+                    <td class="tdnumber"><span class="red">169.45</span></td>  
+                    <td class="tdnumber"><span class="red">2152.89</span></td>  
+                    <td class="tdnumber"><span>-1063.03</span></td>  
+                    <td class="tdnumber"><span class="red">25.02</span></td>  
+                    <td class="tdnumber"><span class="red">97.50</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>24</td>  
+                    <td><a href="#">300040</a></td>  
+                    <td><a href="#">九洲电气</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0300</span></td>  
+                    <td class="tdnumber"><span>4224.85</span></td>  
+                    <td class="tdnumber"><span class="green">-53.34</span></td>  
+                    <td class="tdnumber"><span class="green">-71.61</span></td>  
+                    <td class="tdnumber"><span>363.31</span></td>  
+                    <td class="tdnumber"><span class="red">35.57</span></td>  
+                    <td class="tdnumber"><span class="green">-99.16</span></td>  
+                </tr>  
+                <tr>  
+                    <td>25</td>  
+                    <td><a href="#">300050</a></td>  
+                    <td><a href="#">世纪鼎利</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0100</span></td>  
+                    <td class="tdnumber"><span>7375.58</span></td>  
+                    <td class="tdnumber"><span class="green">-14.22</span></td>  
+                    <td class="tdnumber"><span class="green">-30.18</span></td>  
+                    <td class="tdnumber"><span>137.55</span></td>  
+                    <td class="tdnumber"><span class="green">-81.35</span></td>  
+                    <td class="tdnumber"><span class="red">114.25</span></td>  
+                </tr>  
+                <tr class="odd">  
+                    <td>26</td>  
+                    <td><a href="#">300052</a></td>  
+                    <td><a href="#">中青宝</a></td>  
+                    <td>  
+                        <nobr> <a style="color: rgb(255, 0, 0);" href="#">详细</a> <a href="#">股吧</a>  
+                        </nobr>  
+                    <td class="tdnumber"><span>0.0300</span></td>  
+                    <td class="tdnumber"><span>4342.76</span></td>  
+                    <td class="tdnumber"><span class="red">41.35</span></td>  
+                    <td class="tdnumber"><span class="green">-24.89</span></td>  
+                    <td class="tdnumber"><span>384.77</span></td>  
+                    <td class="tdnumber"><span class="red">111.27</span></td>  
+                    <td class="tdnumber"><span class="red">9.19</span></td>  
+                </tr>  
+            </tbody>  
+        </table> 
+    </div>  
+    <span style="font-family:Microsoft YaHei;font-size:12px;">
+        <script type="text/javascript">  
+            // 打印预览 
+            var LODOP; 
+            function prn1_preview() {     
+                CreateOneFormPage();      
+                LODOP.PREVIEW();      
+            };  
+            // 直接打印  
+            function prn1_print() {       
+                CreateOneFormPage();  
+                LODOP.PRINT();    
+            };  
+            // 选择打印机  
+            function prn1_printA() {          
+                CreateOneFormPage();  
+                LODOP.PRINTA();       
+            };   
+            // 创建打印页面  
+            function CreateOneFormPage(){  
+                LODOP=getLodop();   
+                LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");  
+                LODOP.SET_PRINT_STYLE("FontSize",18);  
+                LODOP.SET_PRINT_STYLE("Bold",1);  
+                LODOP.ADD_PRINT_HTM(10,20,500,5000,document.getElementById("form1").innerHTML);  
+            };  
+            
+        </script></span>
+</body>  
+</html></span>  

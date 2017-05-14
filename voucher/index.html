@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <script src="./print.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        .print .title{
+            width:100%;
+            height:40px;
+            line-height:40px;
+            text-align: center;
+            font-size:18px;
+        }
+        aside{
+            text-align: right;
+            font-size:14px;
+        }
+        aside .key{
+            margin-left:20px;
+        }
+        .line{
+            width:100%;
+            border-top:1px solid #000;
+            border-right:1px solid #000;
+        }
+        .line::after,.line::before{
+            content:" ";
+            display: table;
+        }
+        .line::after{
+            clear:both;
+        }
+        .print .line:nth-child(6){
+            border-bottom:1px solid #000;
+        }
+        .print .content{
+            border-right:1px solid #000;
+            border-top:1px solid #000;
+            border-bottom:1px solid #000;
+            box-shadow:1px 0px 0px #000 inset;
+            font-size: 14px;
+            width:100%;
+        }
+        .content .item{
+            line-height:2em;
+            padding:0px 5px;
+        }
+        .item .key{
+            display: inline-block;
+            width:70px;
+            font-size:14px;
+        }
+        .value{
+            color:#666;
+            font-size:12px;
+        }
+        .line .line-content{
+            float:left;
+            height:30px;
+            font-size:14px;
+            line-height:30px;
+            box-shadow:1px 0px 0px #000 inset;
+        }
+        .line .line-content span{
+            padding:0px 5px;
+        }
+        .line .cols-1{
+            width:10%;
+        }
+        .line .cols-2{
+            width:20%;
+        }
+        .line .cols-3{
+            width:30%
+        }
+        .line .cols-4{
+            width:40%
+        }
+        .line .cols-5{
+            width:50%;
+        }
+        .line .cols-7{
+            width:70%;
+        }
+        .container{
+            height:100%;
+            float:left;
+            padding:10px 0px;
+        }
+        .container.cols-7{
+            width:70%;
+        }
+        .container.cols-3{
+            width:30%;
+            box-shadow:1px 0px 0px #000 inset;
+            height:140px;
+        }
+        .container .price{
+            height:140px;
+            line-height:140px;
+        }
+        .footer{
+            margin-top:10px;
+            font-size:12px;
+        }
+        .comment{
+            width:70%;
+            float:left
+        }
+        .qrcode{
+            width:30%;
+            float:left;
+            text-align: center;
+        }
+        .qrcode img{
+            width:80px;
+        }
+        .clear-fix::before,.clear-fix::after{
+            content:"";
+            display: table;
+        }
+        .clear-fix::after{
+            clear:both;
+        }
+        .price{
+            font-size:12px;
+            color:#666;
+        }
+    </style>     
+</head>
+<body>
+    <div class="print">
+        <div class="title">保养套餐购买凭证</div>
+        <aside>
+            <span class="year">2017</span>年
+            <span class="mounth">05</span>月
+            <span class="date">10</span>日
+            <span class="key">订单编号:14921388337177843</span>
+            <span class="order-no"></span>
+        </aside>
+        <div class="line">
+            <div class="line-content cols-2"><span>姓名</span></div>
+            <div class="line-content cols-3"><span class="value">费仁杰</span></div>
+            <div class="line-content cols-2"><span>车型</span></div>
+            <div class="line-content cols-3"><span class="value">逸动V5</span></div>
+        </div>
+        <div class="line">
+            <div class="line-content cols-2"><span>电话</span></div>
+            <div class="line-content cols-3"><span class="value">15178831138</span></div>
+            <div class="line-content cols-2"><span>车架号</span></div>
+            <div class="line-content cols-3"><span class="value">LS5A3ABE1GD042817</span></div>
+        </div>
+        <div class="line">
+            <div class="line-content cols-7"><span>订单详情</span></div>
+            <div class="line-content cols-3"><span>套餐价格</span></div>
+        </div>
+        <div class="content clear-fix">
+            <div class="container cols-7">
+                <div class="item">
+                    <span class="key">套餐名称:</span>
+                    <span class="value">五次基础保养</span>
+                </div>
+                <div class="item">
+                    <span class="key">机油类型:</span>
+                    <span class="value">黄壳 SL50W-SL</span>
+                </div>
+                <div class="item">
+                    <span class="key">购买时间:</span>
+                    <span class="value">2017-05-10</span>
+                </div>
+                <div class="item">
+                    <span class="key">使用范围:</span>
+                    <span class="value">全国</span>
+                </div>
+                <div class="item">
+                    <span class="key">有效期:</span>
+                    <span class="value">2019-11-10</span>
+                </div>
+            </div>
+            <div class="container cols-3">
+                <div class="price">
+                    ￥1250.00
+                </div>
+            </div>
+            
+        </div>
+        <!--<div class="line">
+            <div class="line-content cols-2"><span>套餐名称</span></div>
+            <div class="line-content cols-5"><span>五次基础保养（全国）</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>机油类型</span></div>
+            <div class="line-content cols-5"><span>黄壳 SN/GF-5 5W-30</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>购买时间</span></div>
+            <div class="line-content cols-5"><span>2017-05-10/span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>使用范围</span></div>
+            <div class="line-content cols-5"><span>全国有效</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>有效期</span></div>
+            <div class="line-content cols-5"><span>2019-11-10</span></div>
+            <div class="line-content cols-3"><span></span></div>
+        </div>-->
+        <div class="footer clear-fix">
+            <div class="comment">
+                <span>备注:</span>
+                <span>
+                    <br>该套餐仅包含基础保养<br>
+                    仅限购买时输入车架号对应车辆使用<br>
+                    到店保养前告知服务顾问已购买套餐即可使用<br>
+                    本套餐在购买7日之内未使用可申请退款<br>
+                    如有疑问，可拨打023-67595966
+                </span>
+            </div>
+            <div class="qrcode">
+                <img src="./qrcode.png" alt="扫描二维码了解更多">
+                <div>扫描二维码了解更多</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".print").printThis({
+            pageTitle:"hello",
+            importCSS:false,
+            importStyle:true,
+        })
+    </script>
+</body>
+</html>

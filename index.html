@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <script src="./print.js"></script>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        html,body{
+            width:90%;
+            margin:0 auto;
+            padding:0;
+            height:100%;
+        }
+    </style>    
+</head>
+<body>
+    <div class="print">
+        <div class="title">保养套餐购买凭证</div>
+        <aside>
+            <span class="year">2017</span>年
+            <span class="mounth">05</span>月
+            <span class="date">10</span>日
+            <span class="key">订单编号:14921388337177843</span>
+            <span class="order-no"></span>
+        </aside>
+        <div class="line">
+            <div class="line-content cols-2"><span>姓名</span></div>
+            <div class="line-content cols-3"><span>费仁杰</span></div>
+            <div class="line-content cols-2"><span>车型</span></div>
+            <div class="line-content cols-3"><span>逸动V5</span></div>
+        </div>
+        <div class="line">
+            <div class="line-content cols-2"><span>电话</span></div>
+            <div class="line-content cols-3"><span>15178831138</span></div>
+            <div class="line-content cols-2"><span>车架号</span></div>
+            <div class="line-content cols-3"><span>LS5A3ABE1GD042817</span></div>
+        </div>
+        <div class="line">
+            <div class="line-content cols-2"><span>订单详情</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>套餐价格</span></div>
+            <div class="line-content cols-3"><span>1345.00</span></div>
+        </div>
+        <div class="line">
+            <div class="line-content cols-2"><span>套餐名称</span></div>
+            <div class="line-content cols-5"><span>五次基础保养（全国）</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>机油类型</span></div>
+            <div class="line-content cols-5"><span>黄壳 SN/GF-5 5W-30</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>购买时间</span></div>
+            <div class="line-content cols-5"><span>2017-05-10/span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>使用范围</span></div>
+            <div class="line-content cols-5"><span>全国有效</span></div>
+            <div class="line-content cols-3"><span></span></div>
+            <div class="line-content cols-2"><span>有效期</span></div>
+            <div class="line-content cols-5"><span>2019-11-10</span></div>
+            <div class="line-content cols-3"><span></span></div>
+        </div>
+        <div class="footer clear-fix">
+            <div class="comment">
+                <span>备注:</span>
+                <span>
+                    <br>该套餐仅包含基础保养<br>
+                    仅限购买时输入车架号对应车辆使用<br>
+                    到店保养前告知服务顾问已购买套餐即可使用<br>
+                    本套餐在购买7日之内未使用可申请退款<br>
+                    如有疑问，可拨打023-67595966
+                </span>
+            </div>
+            <div class="qrcode">
+                <img src="./qrcode.png" alt="扫描二维码了解更多">
+                <div>扫描二维码了解更多</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function(){
+            $(".print").printThis({
+                pageTitle:"hello",
+            })
+        }
+    </script>
+</body>
+</html>
