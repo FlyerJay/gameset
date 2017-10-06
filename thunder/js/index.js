@@ -21,7 +21,7 @@ loadImg.src = './images/loading.gif';
 loadImg.onload = function(){
     drawLoading();
 }
-var images = ['./images/boom.png','./images/hero.png','./images/map.jpg','./images/hullet.png'];
+var images = ['./images/boom.png','./images/hero.png','./images/map.jpg','./images/hullet.png','./images/ep_1.png','./images/epb_1.png'];
 var Images = [];
 
 /**加载所有图片 */
@@ -40,6 +40,7 @@ function loadImage(){
 }
 var loadStep = 0;
 var hero = {};
+var enemys = [];
 function loading(){
     loadStep += Math.ceil(100/images.length);
     if(loadStep >= 100){
@@ -128,6 +129,47 @@ function Hero(){
     this.shot();//自动攻击
 }
 
+/** 定义enemy对象 */
+function Enemy() {
+    this.x = 160;
+    this.y = -50;
+    this.shotSpeed = 500;
+    this.speedX = 10;
+    this.speedY = 20;
+    this.direction = {
+        up:false,
+        down:false,
+        left:false,
+        right:false,
+    };
+    this.hullets = [];
+    var self = this;
+    this.shot = setInterval(function(){
+        self.hullets.push(new Hullet(self.x,self.y));
+    },self.shotSpeed);
+    this.direction.left = Math.floor(((Math.random() * 1000) % 2)) == 1;
+    this.randomDirectTion = setInterval(function(){
+        Math.floor(((Math.random() * 1000) % 2)) == 1 ? function(){
+            self.direction.left = true 
+        }() : 
+        function(){
+            self.direction.left = false 
+        }(); 
+    },3000);
+    this.moveY = setInterval(function(){
+        if(self.y > 600){
+            clearInterval(self.moveY);
+            clearInterval(self.moveX);
+            clearInterval(self.shot);
+            clearInterval(self.randomDirectTion);
+        }
+        self.y += 1;
+    },self.speedY);
+    this.moveX = setInterval(function(){
+        self.direction.left ? self.x < 50 ? self.direction.left = !self.direction.left : self.x -= 1 :self.x > 350 ? self.direction.left = !self.direction.left : self.x += 1;
+    },self.speedX);
+}
+
 function Hullet(x,y){
     this.x = x;
     this.y = y;
@@ -154,6 +196,21 @@ function drawHero(){
     hero.hullets = copy;
     ctx.drawImage(Images[1],hero.x,hero.y,100,100);
 }
+/** 敌人列表 **/
+enemys[enemys.length] = new Enemy();
+function drawEnemy() {
+    for(var i = 0; i < enemys[0].hullets.length; i++){
+        ctx.drawImage(Images[5],enemys[0].hullets[i].x + 30,(enemys[0].hullets[i].y += 10) + 50,30,30);
+    }
+    // var copy = [];
+    // for(var i=0;i <enemys[0].hullets.length;i++){
+    //     if(enemys[0].hullets.y < 550){
+    //         copy.push(hero.hullets[i])
+    //     }
+    // }
+    // enemys[0].hullets = copy;
+    ctx.drawImage(Images[4],enemys[0].x,enemys[0].y,100,100);
+}
 
 /**绘制背景 */
 var by = 600 -2048;
@@ -178,12 +235,13 @@ function drawLoading(){
     img.style.zIndex = '1001';
     document.body.appendChild(img); 
 }
-
+var boom = Boom()
 /**主绘制函数 */
 function draw(){
     if(GAME_STATUS == 1){
-        drawBg();
+        drawBg();;
         drawHero();
+        drawEnemy();
     }
     requestAnimationFrame(draw);
 }

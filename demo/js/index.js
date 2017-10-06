@@ -114,6 +114,10 @@ addEventListener('keydown',function(e){
     snaker.canChangeDir = false;
 })
 
+color = [
+    "#ed3f14","#ff9900","#19be6b","#2d8cf0","#495060"
+]
+
 function drawSnaker(){
     ctx.clearRect(0,0,480,480);
     drawFood();
